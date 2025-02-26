@@ -5,6 +5,7 @@ require_relative '../lib/receipt_item'
 class Receipt
   attr_reader :bucket_items
 
+  # @param input [String] Input string containing the items
   def initialize(input)
     @bucket_items = ShoppingBucketParser.parse(input).map do |bucket_item|
       ReceiptItem.new(
@@ -15,6 +16,7 @@ class Receipt
     end
   end
 
+  # @return [String] Generated receipt output
   def generate
     item_lines = @bucket_items.map(&:to_receipt_line)
     summary_lines = generate_summary
@@ -26,15 +28,11 @@ class Receipt
 
   def generate_summary
     total_tax = @bucket_items.sum(&:total_tax)
-    total_price = @bucket_items.sum(&:final_price).round(2, BigDecimal::ROUND_HALF_UP)
+    total_price = @bucket_items.sum(&:final_price)
 
     [
-      format('Sales Taxes: %.2f', round_to_nearest_5_cents(total_tax).to_s('F')),
+      format('Sales Taxes: %.2f', total_tax.to_s('F')),
       format('Total: %.2f', total_price.to_s('F'))
     ]
-  end
-
-  def round_to_nearest_5_cents(value)
-    BigDecimal(((value * 20).ceil.to_f / 20.0).to_s)
   end
 end

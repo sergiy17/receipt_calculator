@@ -1,6 +1,11 @@
 require 'bigdecimal'
 
 class TaxCalculator
+  # @param product_name [String] Product's name
+  # @param price [BigDecimal] Product's price
+  # @param quantity [Integer] Product's quantity
+  # @return [BigDecimal] Calculated product's tax
+
   EXEMPT_PRODUCTS = %w[book chocolate pills].freeze
   IMPORTED_PRODUCTS = %w[imported].freeze
   ROUNDING_FACTOR = 20
@@ -9,7 +14,7 @@ class TaxCalculator
     intermediate_tax = tax_rate(product_name) * price / 100
     rounded_intermediate_tax = round_to_nearest_5_cents(intermediate_tax)
     final_tax = rounded_intermediate_tax * quantity
-    final_tax.round(2, BigDecimal::ROUND_HALF_UP)
+    final_tax
   end
 
   private
