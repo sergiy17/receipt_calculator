@@ -1,6 +1,6 @@
 require_relative '../../lib/receipt'
 require_relative '../../lib/shopping_bucket_parser'
-require_relative '../../lib/receipt_item'
+require_relative '../../lib/bucket_item'
 require_relative '../../lib/tax_calculator'
 require 'rspec'
 require 'bigdecimal'

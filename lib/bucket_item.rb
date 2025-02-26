@@ -1,6 +1,6 @@
 require_relative '../lib/tax_calculator'
 
-class ReceiptItem
+class BucketItem
   attr_reader :quantity, :product_name, :price
 
   # @param quantity [Integer] Item quantity

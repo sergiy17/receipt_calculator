@@ -1,6 +1,6 @@
 require 'debug'
 require_relative '../lib/shopping_bucket_parser'
-require_relative '../lib/receipt_item'
+require_relative '../lib/bucket_item'
 
 class Receipt
   attr_reader :bucket_items
@@ -8,7 +8,7 @@ class Receipt
   # @param input [String] Input string containing the items
   def initialize(input)
     @bucket_items = ShoppingBucketParser.parse(input).map do |bucket_item|
-      ReceiptItem.new(
+      BucketItem.new(
         quantity: bucket_item[:quantity],
         product_name: bucket_item[:product_name],
         price: bucket_item[:price]
